@@ -39,13 +39,15 @@ struct RootOpt {
 #[derive(Debug, PartialEq, Parser, Default)]
 #[command(disable_help_subcommand = true, disable_help_flag = true)]
 struct Root {
-    #[clap(flatten)]
     opt: RootOpt,
-    #[clap(subcommand)]
     command: RootCmd,
 }
 
 impl Root {
+    fn new(opt: RootOpt, command: RootCmd) -> Self {
+        Self { opt, command }
+    }
+
     pub fn skip_channel_check(&self) -> bool {
         self.opt.skip_channel_check
     }
